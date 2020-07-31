@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+body{
+    background-color: #ffffff;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.image{
+    width: 370px;
+    margin-top: 90px;
+}
+@media (max-width:770px){
+    .container{
+        margin: 0 10%;
+    }
+
+    .image{
+        width: 100%;
+    }
+}
