@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { fetchDailyData } from '../../api';
-import { Line, Bar, } from 'react-chartjs-2';
+import { Line, Pie, } from 'react-chartjs-2';
 
 import styles from './Chart.module.css';
 
@@ -14,6 +14,35 @@ const Chart = ({ data:{confirmed,deaths,recovered},country }) =>{
 
         fetchAPI();
     },[]);
+
+   
+
+    console.log(confirmed,recovered,deaths)
+
+    const PieChart=(
+        confirmed
+         ? (
+             <Pie 
+                data={{
+                    labels: ['Infected','Recovered','Deaths'],
+                    datasets:[{
+                        label:'People',
+                        backgroundColor:[
+                            'rgb(26, 26, 255)',
+                           ' rgb(53, 255, 53)',
+                           'rgb(255, 36, 36)',
+                        ],
+                        data:[confirmed.value,recovered.value,deaths.value]
+                    }]
+                }}
+                options={{
+                    legend:{display: false},
+                    title:{ display:true, text:`Current state in ${country}`}
+                }}
+             />
+         ) :null
+    )
+
 
     const lineChart =(
         dailyData.length
@@ -39,38 +68,10 @@ const Chart = ({ data:{confirmed,deaths,recovered},country }) =>{
         />): null
     );
 
-    console.log(confirmed,recovered,deaths)
-
-    const barChart=(
-        confirmed
-         ? (
-             <Bar 
-                data={{
-                    labels: ['Infected','Recovered','Deaths'],
-                    datasets:[{
-                        label:'People',
-                        backgroundColor:[
-                            'rgb(26, 26, 255)',
-                           ' rgb(53, 255, 53)',
-                           'rgb(255, 36, 36)',
-                        ],
-                        data:[confirmed.value,recovered.value,deaths.value]
-                    }]
-                }}
-                options={{
-                    legend:{display: false},
-                    title:{ display:true, text:`Current state in ${country}`}
-                }}
-             />
-         ) :null
-    );
-
-   
-
     
     return (
         <div className={styles.container}>
-            {country ? barChart: lineChart}
+            {country ? PieChart: lineChart}
             
         </div>
     )
